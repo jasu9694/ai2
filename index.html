@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- ▶ Clerk Auth SDK -->
-<script async crossorigin="anonymous" data-clerk-publishable-key=pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
+<script async crossorigin="anonymous" data-clerk-publishable-key="YOUR_CLERK_PUBLISHABLE_KEY" src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"></script>
 <!-- ▶ Supabase Client -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
@@ -4199,15 +4199,14 @@ window.addEventListener('load', () => {
     obs.observe(el);
   });
 });
-
 // ══════════════════════════════════════════════
 // CLERK + SUPABASE AUTH & PERSISTENCE
 // ══════════════════════════════════════════════
 
 // ─ Config (replace with your real keys) ───────
-const CLERK_PUBLISHABLE_KEY =pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA;
-const SUPABASE_URL          =https://drasirzlcosphbmefbkk.supabase.co ;
-const SUPABASE_ANON_KEY     =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRyYXNpcnpsY29zcGhibWVmYmtrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3NzgxNTcsImV4cCI6MjA4NzM1NDE1N30.Ziqtf9PPLoetaUN_0F4g5zrmGOkAhpCTlt6udlVegHI ;
+const CLERK_PUBLISHABLE_KEY = 'YOUR_CLERK_PUBLISHABLE_KEY';
+const SUPABASE_URL          = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY     = 'YOUR_SUPABASE_ANON_KEY';
 
 // ─ Supabase client ─────────────────────────────
 let sb = null;
@@ -4287,7 +4286,7 @@ function setLoggedOutUI() {
 // ─ Clerk initialization ────────────────────────
 async function initClerk() {
   initSupabase();
-  if (CLERK_PUBLISHABLE_KEY ===pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA) {
+  if (CLERK_PUBLISHABLE_KEY === 'YOUR_CLERK_PUBLISHABLE_KEY') {
     // Dev mode: wire up simulateLogin (no real Clerk)
     console.info('LearnCraft: Running in demo mode. Add your Clerk key to enable real auth.');
     return;
@@ -4313,7 +4312,7 @@ async function handleLogin() {
   const btn = document.getElementById('loginBtn');
   const errEl = document.getElementById('loginError');
   if (!email || !password) { showAuthError(errEl, 'Please enter your email and password.'); return; }
-  if (CLERK_PUBLISHABLE_KEY ===pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA) {
+  if (CLERK_PUBLISHABLE_KEY === 'YOUR_CLERK_PUBLISHABLE_KEY') {
     // Demo mode: simulate login
     simulateLogin(); return;
   }
@@ -4341,7 +4340,7 @@ async function handleSignup() {
   const sucEl = document.getElementById('signupSuccess');
   if (!email || !pass) { showAuthError(errEl, 'Please fill in all required fields.'); return; }
   if (pass.length < 8) { showAuthError(errEl, 'Password must be at least 8 characters.'); return; }
-  if (CLERK_PUBLISHABLE_KEY === pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA) {
+  if (CLERK_PUBLISHABLE_KEY === 'YOUR_CLERK_PUBLISHABLE_KEY') {
     simulateLogin(); return;
   }
   btn.disabled = true;
@@ -4386,7 +4385,7 @@ async function authWithGoogle() {
 }
 
 async function authWithGitHub() {
-  if (CLERK_PUBLISHABLE_KEY ===pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA) { simulateLogin(); return; }
+  if (CLERK_PUBLISHABLE_KEY === 'YOUR_CLERK_PUBLISHABLE_KEY') { simulateLogin(); return; }
   try {
     await window.Clerk.client.signIn.authenticateWithRedirect({
       strategy: 'oauth_github', redirectUrl: window.location.href, redirectUrlComplete: window.location.href,
@@ -4397,7 +4396,7 @@ async function authWithGitHub() {
 async function handleForgotPassword() {
   const email = document.getElementById('loginEmail')?.value.trim();
   if (!email) { showAuthError(document.getElementById('loginError'), 'Enter your email address above first.'); return; }
-  if (CLERK_PUBLISHABLE_KEY ===pk_test_ZnVuLWxhcmstOTguY2xlcmsuYWNjb3VudHMuZGV2JA) { alert('Demo mode: password reset not available.'); return; }
+  if (CLERK_PUBLISHABLE_KEY === 'YOUR_CLERK_PUBLISHABLE_KEY') { alert('Demo mode: password reset not available.'); return; }
   try {
     await window.Clerk.client.signIn.create({ strategy: 'reset_password_email_code', identifier: email });
     showAuthError(document.getElementById('loginError'), ''); 
